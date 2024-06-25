@@ -10,7 +10,7 @@ import Rating from '../../assets/icons/rating.svg'
 import NoImg from '../../assets/images/noimg.jpg'
 
 const Products = () => {
-    let { data, isFetching } = useGetProductsQuery({ limit: 1000 })
+    let { data, isFetching } = useGetProductsQuery({ limit: 12 })
 
     let products = data?.data?.products?.map(product => (
         <div key={product.id} className='product duration-200 overflow-hidden'>
