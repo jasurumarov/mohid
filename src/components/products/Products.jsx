@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGetProductsQuery } from '../../context/api/productsApi'
+
+// MUI
+import { Pagination, Box, InputLabel, MenuItem, FormControl } from '@mui/material';
+import Select from '@mui/material/Select';
 
 // Icons
 import { FaShoppingCart } from 'react-icons/fa'
@@ -10,7 +14,27 @@ import Rating from '../../assets/icons/rating.svg'
 import NoImg from '../../assets/images/noimg.jpg'
 
 const Products = () => {
-    let { data, isFetching } = useGetProductsQuery({ limit: 12 })
+    const [page, setPage] = useState(+sessionStorage.getItem("page-count") || 1)
+    const [perPageCount, setPerPageCount] = useState(+localStorage.getItem("page") || 6)
+    let { data, isFetching } = useGetProductsQuery({ limit: perPageCount, page })
+
+    let totalPagination = Math.ceil(data?.data?.count / perPageCount)
+
+    const handleChangePagination = (_, value) => {
+        setPage(value)
+        sessionStorage.setItem("page-count", value)
+    }
+
+    const handleChangePage = e => {
+        let value = e.target.value
+        setPerPageCount(value)
+        localStorage.setItem("page", value)
+
+        let result = Math.ceil(page * perPageCount / value)
+
+        setPage(result)
+        sessionStorage.setItem("page-count", result)
+    }
 
     let products = data?.data?.products?.map(product => (
         <div key={product.id} className='product duration-200 overflow-hidden'>
@@ -42,11 +66,35 @@ const Products = () => {
 
     return (
         <section className='container mb-[135px]'>
-            <p className='text-center text-colorBlue mb-1 font-semibold gap-1'>Find your favourite smart watch.</p>
-            <h2 className='text-center text-[#1E1D1D] text-3xl md:text-4xl font-bold mb-[65px]'>Our Latest Products</h2>
+            <article className='flex items-center justify-between gap-3 mb-[65px]'>
+                <div>
+                    <p className=' text-colorBlue text-[14px] sm:text-[16px] mb-1 font-semibold gap-1'>Find your favourite smart watch.</p>
+                    <h2 className=' text-[#1E1D1D] text-2xl sm:text-3xl md:text-4xl font-bold'>Our Latest Products</h2>
+                </div>
+                <Box>
+                    <FormControl sx={{ m: 1, minWidth: 80 }}>
+                        <InputLabel id="demo-simple-select-autowidth-label">Pages</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-autowidth-label"
+                            id="demo-simple-select-autowidth"
+                            value={perPageCount}
+                            onChange={handleChangePage}
+                            autoWidth
+                            label="Pages"
+                        >
+                            <MenuItem value={6}>6</MenuItem>
+                            <MenuItem value={12}>12</MenuItem>
+                            <MenuItem value={20}>20</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+            </article>
             <div className='grid gap-6 lg:gap-[49px] grid-cols-2 md:grid-cols-3'>
                 {products}
             </div>
+            <Box sx={{ display: "flex", justifyContent: "center", marginTop: "64px" }}>
+                <Pagination count={totalPagination} page={page} onChange={handleChangePagination} color="primary" />
+            </Box>
         </section>
     )
 }

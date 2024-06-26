@@ -22,15 +22,10 @@ export default {
         colorBlue: "#3858D6"
       },
       boxShadow: {
-        shadowHeader: '',
+        shadowHeader: '0px 4px 12px 0px #CFCFCF40',
+        shadowMenu: '0 3px 5px #0002',
       },
     },
-    fontFamily: {
-      lexand: ['Lexand'],
-      lexand500: ['Lexand500'],
-      lexand600: ['Lexand600'],
-      lexand700: ['Lexand700'],
-    }
   },
   plugins: [],
 }
