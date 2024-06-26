@@ -15,7 +15,7 @@ const Hero = () => {
     const [imgLoading, setImgLoading] = useState(true);
     setTimeout(() => {
         setImgLoading(false);
-    }, 100);
+    }, 500);
     return (
         <section className='bg-colorBlack pt-36 pb-44'>
             <div data-aos="fade-right" className='container flex flex-wrap items-center justify-between gap-10'>

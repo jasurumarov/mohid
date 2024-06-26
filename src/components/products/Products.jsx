@@ -23,7 +23,7 @@ const Products = () => {
     const [imgLoading, setImgLoading] = useState(true);
     setTimeout(() => {
         setImgLoading(false);
-    }, 300);
+    }, 500);
 
     const [page, setPage] = useState(+sessionStorage.getItem("page-count") || 1)
     const [perPageCount, setPerPageCount] = useState(+localStorage.getItem("page") || 6)

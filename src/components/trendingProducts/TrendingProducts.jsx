@@ -35,7 +35,7 @@ const TrendingProducts = () => {
     const [imgLoading, setImgLoading] = useState(true);
     setTimeout(() => {
         setImgLoading(false);
-    }, 100);
+    }, 500);
     let trendingProducts = trendProductsData?.map(product => (
         <div key={product.id} className='bg-[#F6F6F6] pl-[41px] pr-[36px] py-[46px] w-full lg:w-[354px] flex gap-6 rounded-[22px]'>
             <img src={product.img} alt="trending watch img" className={`${imgLoading ? "img__loading" : "img__loading-disabled"}`} />
