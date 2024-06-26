@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { useGetProductsQuery } from '../../context/api/productsApi'
 
+// Aos
+import Aos from 'aos'
+import 'aos/dist/aos.css';
+Aos.init()
+
 // MUI
 import { Pagination, Box, InputLabel, MenuItem, FormControl } from '@mui/material';
 import Select from '@mui/material/Select';
@@ -12,6 +17,7 @@ import Rating from '../../assets/icons/rating.svg'
 
 // Images
 import NoImg from '../../assets/images/noimg.jpg'
+import LoadingSkeleton from '../loading-skeleton/LoadingSkeleton';
 
 const Products = () => {
     const [page, setPage] = useState(+sessionStorage.getItem("page-count") || 1)
@@ -65,7 +71,7 @@ const Products = () => {
     ))
 
     return (
-        <section className='container mb-[135px]'>
+        <section data-aos={"zoom-in-up"}  id='recent-products' className='container pt-[135px]'>
             <article className='flex items-center justify-between gap-3 mb-[65px]'>
                 <div>
                     <p className=' text-colorBlue text-[14px] sm:text-[16px] mb-1 font-semibold gap-1'>Find your favourite smart watch.</p>
@@ -89,9 +95,15 @@ const Products = () => {
                     </FormControl>
                 </Box>
             </article>
-            <div className='grid gap-6 lg:gap-[49px] grid-cols-2 md:grid-cols-3'>
-                {products}
-            </div>
+            {
+                isFetching
+                    ?
+                    <LoadingSkeleton perPageCount={perPageCount} />
+                    :
+                    <div className='grid gap-6 lg:gap-[49px] grid-cols-2 md:grid-cols-3'>
+                        {products}
+                    </div>
+            }
             <Box sx={{ display: "flex", justifyContent: "center", marginTop: "64px" }}>
                 <Pagination count={totalPagination} page={page} onChange={handleChangePagination} color="primary" />
             </Box>

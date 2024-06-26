@@ -10,22 +10,31 @@ const navlinkData = [
     {
         id: 1,
         link: 'Home',
+        section: '#'
+
     },
     {
         id: 2,
         link: 'Brands',
+        section: '#trending-products'
+
     },
     {
         id: 3,
         link: 'Recent Products',
+        section: '#recent-products'
     },
     {
         id: 4,
         link: 'Contact',
+        section: '#contact-us'
+
     },
     {
         id: 5,
         link: 'About',
+        section: '#about-us'
+
     }
 ]
 
@@ -33,7 +42,7 @@ const Header = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
 
     let navlinksItem = navlinkData?.map(item => (
-        <Link key={item.id} to={'/'} className='duration-200 hover:text-white font-medium cursor-pointer'>{item.link}</Link>
+        <a key={item.id} href={item.section} className='duration-200 hover:text-white font-medium cursor-pointer'>{item.link}</a>
     ))
     return (
         <header className='z-10 sticky top-0 bg-colorBlack py-[22px]'>

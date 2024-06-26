@@ -1,5 +1,10 @@
 import React from 'react'
 
+// Aos
+import Aos from 'aos'
+import 'aos/dist/aos.css';
+Aos.init()
+
 // Images
 import ProductImg1 from '../../assets/images/trendProduct1.png'
 import ProductImg2 from '../../assets/images/trendProduct2.png'
@@ -37,7 +42,7 @@ const TrendingProducts = () => {
         </div>
     ))
     return (
-        <section className='container pt-[73px] pb-[135px] flex flex-wrap justify-center gap-5'>
+        <section data-aos={"zoom-in-up"} id='trending-products' className='container pt-[103px] flex flex-wrap justify-center gap-5'>
             {trendingProducts}
         </section>
     )
