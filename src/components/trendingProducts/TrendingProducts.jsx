@@ -42,7 +42,7 @@ const TrendingProducts = () => {
         </div>
     ))
     return (
-        <section data-aos={"zoom-in-up"} id='trending-products' className='container pt-[103px] flex flex-wrap justify-center gap-5'>
+        <section data-aos={"zoom-in-up"} data-aos-duration="600" data-aos-anchor-placement="top-center" id='trending-products' className='container pt-[103px] flex flex-wrap justify-center gap-5'>
             {trendingProducts}
         </section>
     )

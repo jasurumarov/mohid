@@ -57,7 +57,7 @@ const About = () => {
         </SwiperSlide>
     ))
     return (
-        <section data-aos={"zoom-in-up"} id='about-us' className='container pt-[135px] mb-[100px]'>
+        <section data-aos={"zoom-in-up"} data-aos-duration="600" data-aos-anchor-placement="top-center" id='about-us' className='container pt-[135px] mb-[100px]'>
             <p className='text-center text-colorBlue mb-1.5 font-semibold gap-1'>Here are our some of the best clients.</p>
             <h2 className='text-center text-[#1E1D1D] text-3xl md:text-4xl font-bold mb-[50px]'>What People Say About Us</h2>
             <Swiper

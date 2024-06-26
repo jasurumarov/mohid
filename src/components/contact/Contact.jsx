@@ -10,7 +10,7 @@ import Watch from '../../assets/images/contact.png'
 
 const Contact = () => {
     return (
-        <section data-aos={"zoom-in-up"} id='contact-us' className='container '>
+        <section data-aos={"zoom-in-up"} data-aos-duration="600" data-aos-anchor-placement="top-center" id='contact-us' className='container '>
             <div className='bg-[#F6F6F6] rounded-[22px] py-10 sm:px-10 px-4 md:px-24 flex flex-wrap items-center justify-between gap-[40px] mb-24'>
                 <div>
                     <h2 className='text-2xl md:text-4xl text-[#1E1D1D] font-bold mb-3'>Subscribe To Newsletter</h2>

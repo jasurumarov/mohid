@@ -71,7 +71,7 @@ const Products = () => {
     ))
 
     return (
-        <section data-aos={"zoom-in-up"}  id='recent-products' className='container pt-[135px]'>
+        <section data-aos={"zoom-in-up"} data-aos-duration="600" data-aos-anchor-placement="top-center" id='recent-products' className='container pt-[135px]'>
             <article className='flex items-center justify-between gap-3 mb-[65px]'>
                 <div>
                     <p className=' text-colorBlue text-[14px] sm:text-[16px] mb-1 font-semibold gap-1'>Find your favourite smart watch.</p>
