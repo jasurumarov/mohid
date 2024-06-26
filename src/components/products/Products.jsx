@@ -20,6 +20,11 @@ import NoImg from '../../assets/images/noimg.jpg'
 import LoadingSkeleton from '../loading-skeleton/LoadingSkeleton';
 
 const Products = () => {
+    const [imgLoading, setImgLoading] = useState(true);
+    setTimeout(() => {
+        setImgLoading(false);
+    }, 300);
+
     const [page, setPage] = useState(+sessionStorage.getItem("page-count") || 1)
     const [perPageCount, setPerPageCount] = useState(+localStorage.getItem("page") || 6)
     let { data, isFetching } = useGetProductsQuery({ limit: perPageCount, page })
@@ -47,8 +52,8 @@ const Products = () => {
             <div className='productimg h-[260px] md:h-[337px] bg-[#F6F6F6] flex items-center justify-center relative'>
                 {
                     product.urls[0]
-                        ? <img src={product.urls[0]} alt={product.title} className='w-[200px] md:w-[250px] h-[250px] object-contain cursor-pointer duration-300' />
-                        : <img src={NoImg} alt="no img" className='object-contain md:object-cover w-full h-full duration-300' />
+                        ? <img src={product.urls[0]} alt={product.title} className={`w-[200px] md:w-[250px] h-[250px] object-contain cursor-pointer duration-300 ${imgLoading ? "img__loading" : "img__loading-disabled"}`} />
+                        : <img src={NoImg} alt="no img" className={`object-contain md:object-cover w-full h-full duration-300 ${imgLoading ? "img__loading" : "img__loading-disabled"}`} />
                 }
                 <div className='absolute z-[9] top-[10px] -right-[36px] flex flex-col gap-2 duration-300'>
                     <button className='w-8 h-8 rounded-[50%] bg-colorBlue text-white text-[16px] flex items-center justify-center cursor-pointer'>
@@ -61,7 +66,7 @@ const Products = () => {
             </div>
             <h3 title={product.title} className='mt-[11px] mb-2 text-center font-semibold text-[#1E1D1D] text-[18px] lg:text-2xl capitalize title'>{product.title}</h3>
             <div className='flex justify-center'>
-                <img src={Rating} alt="rating" className='text-center mb-2 w-[100px] lg:w-auto' />
+                <img src={Rating} alt="rating" className={`text-center mb-2 w-[100px] lg:w-auto`} />
             </div>
             <div className='flex gap-1 justify-center items-center'>
                 <del className='font-semibold lg:text-xl text-colorGray'>${product.oldPrice}</del>

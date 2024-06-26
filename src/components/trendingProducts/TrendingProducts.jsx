@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Aos
 import Aos from 'aos'
@@ -32,9 +32,13 @@ const trendProductsData = [
 ]
 
 const TrendingProducts = () => {
+    const [imgLoading, setImgLoading] = useState(true);
+    setTimeout(() => {
+        setImgLoading(false);
+    }, 100);
     let trendingProducts = trendProductsData?.map(product => (
         <div key={product.id} className='bg-[#F6F6F6] pl-[41px] pr-[36px] py-[46px] w-full lg:w-[354px] flex gap-6 rounded-[22px]'>
-            <img src={product.img} alt="trending watch img" />
+            <img src={product.img} alt="trending watch img" className={`${imgLoading ? "img__loading" : "img__loading-disabled"}`} />
             <div>
                 <h2 className='text-[#1E1D1D] font-bold text-4xl pt-2'>{product.title}</h2>
                 <p className='lg:max-w-[173px] text-colorGray font-medium leading-5 mt-[9px]'>{product.desc}</p>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Aos
 import Aos from 'aos'
@@ -12,6 +12,10 @@ import HeroImg from '../../assets/images/hero-img.png'
 import { IoSearch } from 'react-icons/io5'
 
 const Hero = () => {
+    const [imgLoading, setImgLoading] = useState(true);
+    setTimeout(() => {
+        setImgLoading(false);
+    }, 100);
     return (
         <section className='bg-colorBlack pt-36 pb-44'>
             <div data-aos="fade-right" className='container flex flex-wrap items-center justify-between gap-10'>
@@ -24,7 +28,7 @@ const Hero = () => {
                         <button className='h-[45px] w-[112px] flex justify-center items-center bg-colorBlue rounded-[12px] font-semibold text-white absolute right-2 -top-[11px] pb-[2.5px] active:scale-95 hover:opacity-[.98] duration-200'>Search</button>
                     </label>
                 </div>
-                <img src={HeroImg} alt="watch img" className='hidden lg:block' />
+                <img src={HeroImg} alt="watch img" className={`hidden lg:block ${imgLoading ? "img__loading" : "img__loading-disabled"}`} />
             </div>
         </section>
     )
