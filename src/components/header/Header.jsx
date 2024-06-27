@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
 
 // Icons
 import Logo from '../../assets/icons/logo.svg'
 import { FaCartShopping, FaUser } from 'react-icons/fa6'
 import { FiMenu, FiSearch } from 'react-icons/fi'
+import { useSelector } from 'react-redux'
 
 const navlinkData = [
     {
@@ -39,6 +40,13 @@ const navlinkData = [
 ]
 
 const Header = () => {
+    const { pathname } = useLocation()
+    if (pathname === '/register' || pathname === '/admin') {
+        return <></>
+    }
+
+    let isLogin = useSelector(state => state.auth.token)
+
     const [toggleMenu, setToggleMenu] = useState(false)
 
     let navlinksItem = navlinkData?.map(item => (
@@ -55,7 +63,9 @@ const Header = () => {
                 </ul>
                 <div className='flex gap-5 md:gap-4 items-center text-white text-[18px]'>
                     <FiSearch className='cursor-pointer' />
-                    <FaUser className='cursor-pointer' />
+                    <Link to={`${isLogin ? '/admin' : '/register'}`}>
+                        <FaUser className='cursor-pointer' />
+                    </Link>
                     <div className='relative text-white cursor-pointer'>
                         <FaCartShopping />
                         <span className='absolute -top-2.5 -right-2.5 bg-[#3858D6] rounded-[50%] w-[18px] h-[18px] flex justify-center items-center text-[10px] border-colorBlack border-2'>1</span>

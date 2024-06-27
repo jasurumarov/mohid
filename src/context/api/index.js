@@ -1,24 +1,36 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
+import { logout } from '../slices/authSlice';
 
-const baseQuery = fetchBaseQuery({
-    // Asosiy API URL
-    baseUrl: "https://bazar.ilyosbekdev.uz",
-    prepareHeaders: (headers) => {
-        const token = localStorage.getItem("token")
-        if (token) {
-            // Har so'rovda mana shu token headersda qo'shib jo'natiladi
-            headers.set('Authorization', `${token}`)
+const baseQuery = async (args, api, extraOptions) => {
+    const { dispatch } = api
+    const rawBaseQuery = fetchBaseQuery({
+        baseUrl: "https://bazar.ilyosbekdev.uz",
+        prepareHeaders: (headers) => {
+            const token = localStorage.getItem("x-auth-token")
+            if (token) {
+                headers.set('Authorization', `Bearer ${token}`)
+            }
+            return headers
+        },
+    });
+
+    const result = await rawBaseQuery(args, api, extraOptions);
+
+    if (result.error) {
+        const { status } = result.error;
+        if (status === 401 || status === 403) {
+            console.error('Unauthorized access - Redirecting to login...');
+            dispatch(logout())
         }
-        return headers
-    },
-})
+    }
+    return result;
+};
 
-// Qayta urinish soni
 const baseQueryWithRetry = retry(baseQuery, { maxRetries: 0 })
 
 export const api = createApi({
     reducerPath: 'mainApi',
     baseQuery: baseQueryWithRetry,
-    tagTypes: ["Product"], // O'zgarish bo'lganda qayta fetch qilish uchun Tag Typelar
+    tagTypes: ["Product", "User"],
     endpoints: () => ({}),
 })
